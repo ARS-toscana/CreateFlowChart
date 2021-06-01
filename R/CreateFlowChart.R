@@ -9,9 +9,12 @@
 #' @param weight (optional) weight variable: in the input dataset each row may represent multiple unit of observations, if this is the case weight contains the weight of each row
 #' @param strata (optional) categorical variable representing strata
 #' @param flowchartname: filename (possibly with path) of the output dataset containing the flowchart
+#' @param figure (boolean): if TRUE a figure is produced and saved in outputdir
+#' @param MultipleFlow (boolean): TRUE if the dataset has more than one strata
+#' @param outputdir (character):  path where the figure is saved
 
 
-CreateFlowChart<-function(dataset,listcriteria,weight,strata,flowchartname, figure=F, MultipleFlow=F) {
+CreateFlowChart<-function(dataset,listcriteria,weight,strata,flowchartname, figure=F, MultipleFlow=F, outputdir= dirfigure) {
   if (!require("data.table")) install.packages("data.table")
   library(data.table)
   #create a list containing the names of the new columns
@@ -87,7 +90,8 @@ CreateFlowChart<-function(dataset,listcriteria,weight,strata,flowchartname, figu
       scale_y_continuous(labels = scales::percent_format())
 
     ### Saving the plot
-    ggsave(filename=paste0(dirfigure, flowchartname, "_figure.pdf"), plot=flow_plot)
+
+    ggsave(filename=paste0(outputdir, flowchartname, "_figure.pdf"), plot=flow_plot)
   }
   #############################################################################
   ######################       End Adding Figure       ########################
